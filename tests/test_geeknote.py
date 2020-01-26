@@ -3,6 +3,7 @@
 import sys
 import time
 import unittest
+import subprocess
 from cStringIO import StringIO
 from geeknote.geeknote import *
 from geeknote import tools
@@ -50,8 +51,17 @@ class testNotes(unittest.TestCase):
         # set the timezone for the date tests to work
         # this is particularly important on Travis CI, where
         # the timezone may not be the same as our dev machine
-        os.environ['TZ'] = "PST-0800"
-        time.tzset()
+
+        print "---------before tzset-------"
+        subprocess.call(['date', '+%Y %m %d %H %M %S'])
+        print "---------------------------"
+
+        # os.environ['TZ'] = "PST-0800"
+        # time.tzset()
+
+        print "---------after tzset----------"
+        subprocess.call(['date', '+%Y %m %d %H %M %S'])
+        print "---------------------------"
 
     def test_parseInput1(self):
         testData = self.notes._parseInput("title", "test body", ["tag1"], None, None, ["res 1", "res 2"])

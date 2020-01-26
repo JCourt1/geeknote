@@ -368,6 +368,11 @@ def printDate(timestamp):
     if timestamp is None:
         return "None"
     else:
+        print datetime.datetime.now()
+        print "In printDate"
+        print timestamp
+        print datetime.datetime.fromtimestamp(timestamp / 1000)
+        # print os.environ['TZ']
         return datetime.datetime.fromtimestamp(timestamp / 1000).strftime(
             config.DEF_DATE_FORMAT
         )

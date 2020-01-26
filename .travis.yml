@@ -12,6 +12,12 @@ python:
 #  - "3.5-dev" # 3.5 development branch
 #  - "nightly" # currently points to 3.6-dev
 
+before_install:
+  - date "+%Y %m %d %H %M %S"
+
+before_script:
+  - date "+%Y %m %d %H %M %S"
+
 os:
   - linux
 #  - osx
@@ -20,4 +26,4 @@ install:
   - pip install -r requirements.txt
 
 # command to run tests
-script: python -m pytest
+script: python -m pytest -s
