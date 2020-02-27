@@ -2,6 +2,8 @@
 
 import sys
 import os
+import datetime
+import subprocess
 import time
 import unittest
 from cStringIO import StringIO
@@ -48,14 +50,30 @@ class NoteStub(object):
 class outTestsWithHackedStdout(unittest.TestCase):
 
     def setUp(self):
+        print "---------------------------"
+        subprocess.call(['date', '+%Y %m %d %H %M %S'])
+        print os.environ.get('TZ')
+        print datetime.datetime.now()
+        print datetime.datetime.utcnow()
+        print datetime.date.today()
+        print "---------------------------"
+
+        os.environ['TZ'] = "PST-8"
+
+        print "---------------------------"
+        subprocess.call(['date', '+%Y %m %d %H %M %S'])
+        print os.environ.get('TZ')
+        print datetime.datetime.now()
+        print datetime.datetime.utcnow()
+        print datetime.date.today()
+        print "---------------------------"
+
         # set fake stdout and stderr
         self.stdout, sys.stdout = sys.stdout, StringIO()
         self.stderr, sys.stderr = sys.stderr, StringIO()
         # set the timezone for the date tests to work
         # this is particularly important on Travis CI, where
         # the timezone may not be the same as our dev machine
-        # os.environ['TZ'] = "PST-0800"
-        # time.tzset()
 
     def tearDown(self):
         sys.stdout = self.stdout
